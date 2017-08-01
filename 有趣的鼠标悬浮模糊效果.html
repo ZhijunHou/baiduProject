@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		
+		
+		<style type="text/css">
+			
+			*{
+				margin: 0px;
+				padding: 0px;
+			}
+
+			#backImg{
+				width: 600px;
+				height: 400px;
+			}
+			
+			img{
+				position: relative;
+				top: 50px;
+				left: 50px;
+			}
+			
+			#backImg:hover img{
+				-webkit-filter: blur(2px);
+			}
+			
+			
+			.wrapper{
+				position: absolute;
+				top: 100px;
+				left: 130px;
+				height: 200px;
+				width: 350px;
+				text-align: center;
+			}
+			
+			
+			.wrapper:before{
+				content: '';
+				position: absolute;
+				top:0;
+				left: 50%;
+				width: 0;
+				height: 96%;				
+				border-width: 3px 0;
+			}
+			
+			#backImg:hover .wrapper:before{
+				content: '';
+				left:0;
+				width: 100%;
+				border: 3px solid ghostwhite;
+				transition: all 1s;
+				border-width: 3px 0;
+			}
+			
+			/*.wrapper:after{
+				content: '';
+				position: absolute;
+				top:50%;
+				left:0;
+				width: 99%;
+				height: 0;				
+				border-width: 0 3px;
+			}
+			
+			#backImg:hover .wrapper:after{
+				content: '';
+				top:0;
+				height: 99%;
+				border: 3px solid ghostwhite;
+				transition: all 1s;
+				border-width:0 3px;
+			}
+			*/
+			
+			
+			.text, .subtext{
+				position: relative;
+				top: 50px;		
+				color: transparent;
+				background-image: -webkit-linear-gradient(left,red,orange,blue,red,orange,blue,red);
+				-webkit-background-clip: text;
+				-webkit-background-size: 200% 100%;
+				-webkit-animation: masked-animation 4s infinite linear;
+				opacity: 0;
+			}
+			
+			.subtext{
+				background-image: -webkit-linear-gradient(left,pink,blue,pink);
+
+			}
+			
+			#backImg:hover .text{
+				opacity: 1;
+			}
+			#backImg:hover .subtext{
+				opacity: 1;
+			}
+			
+			@-webkit-keyframes masked-animation {
+				0% {
+					background-position: 0 0;
+				}
+				100% {
+					background-position: -100% 0;
+				}
+			}
+			
+			
+			
+			
+			
+			
+
+					
+		
+		</style>
+	</head>
+	<body>		
+		
+	<div id="backImg">	
+		
+    <img src="img/4.jpeg" height="300px" width="500px" />
+    
+    
+	<div class="wrapper">
+	<h1 class="text">welcome!</h1><br />
+	<a><h4 class="subtext">点击报名</h4></a>
+	</div>
+	
+	
+	</div>	
+	</body>
+</html>
