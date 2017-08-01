@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style type="text/css">
+			
+			*{
+				margin: 0px;
+				padding: 0px;
+			}
+			
+			
+			body{
+				display: flex;
+				justify-content: center;
+			}
+			table{
+			position: relative;
+			top: 50px;
+			border-collapse: collapse;
+			border:2px solid gray;
+			}
+			
+			table tr td{
+				border: 1px solid gray;
+			}
+			
+			table td{
+				height: 30px;
+				width: 80px;
+				text-align: center;
+			}
+			
+			table thead td{
+				background-color: grey;
+				color: whitesmoke;
+				border: 1px solid whitesmoke;
+			}
+			
+			thead td:nth-child(n+2):before{
+				content: "";
+				position: relative;
+				bottom:18px ;
+				left: 48px;
+				border-left: 5px solid transparent;
+				border-right:5px solid transparent;
+				border-bottom: 5px solid whitesmoke;
+			}
+			
+			thead td:nth-child(n+2):after{
+				content: "";
+				position: relative;
+				top:15px ;
+				left: 6px;
+				border-left: 5px solid transparent;
+				border-right:5px solid transparent;
+				border-top: 5px solid whitesmoke;
+			}		
+		</style>
+		
+		
+		<script type="text/javascript"></script>
+		
+	</head>
+	<body>
+		
+		<table id = "dataT">
+			
+			<thead>
+				<td>姓名</td>
+				<td>语文</td>
+				<td>数学</td>
+				<td>英语</td>
+				<td>总分</td>
+			</thead>
+			
+			
+			<tr>
+				<td>小红</td>
+				<td>95</td>
+				<td>80</td>
+				<td>90</td>
+				<td>总分</td>
+			</tr>
+			
+			<tr>
+				<td>小红</td>
+				<td>95</td>
+				<td>80</td>
+				<td>90</td>
+				<td>总分</td>
+			</tr>
+			
+			
+						<tr>
+				<td>小红</td>
+				<td>95</td>
+				<td>80</td>
+				<td>90</td>
+				<td>总分</td>
+			</tr>
+			
+		</table>
+		
+		
+		
+	</body>
+</html>

@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style type="text/css">
+		
+			*{
+				margin: 0px;
+				padding: 0px;
+				}
+				
+			div,.abc {
+				display: flex;
+				flex-flow: row wrap;
+				justify-content: space-around;
+				align-items: center;
+				background-color:white;
+				margin: 5px;
+				padding: 5px;
+				height: 80%;
+				border: 3px solid #000;
+				border-radius: 4px;
+				color: #000;
+			}
+			
+			
+			.selected{
+				background-color:pink;
+			}
+		</style>
+	</head>
+	<body>
+		
+		 <div class="show" id = "show">夜来
+    <div>风雨
+      <div>小楼听
+        <div>花既</div>
+        <div>凋零</div>
+        <div>且卖花</div>
+        <div>梦回</div>91
+      </div>
+      <div>巫山
+        <div>任风语</div>
+        <div>爱上</div>
+      </div>
+    </div>
+    <div>层楼
+      <div>不道愁</div>
+      <div>小星</div>
+      <div>花非花</div>
+    </div>
+    <div>沁园春</div>
+    <div>
+      <div>
+        <div>
+          <div>一剪梅</div>
+          <div>定风波</div>
+          <div>虞美人</div>
+        </div>
+        <div>苏轼</div>
+      </div>
+      <div>
+        <div>李清照</div>
+        <div>柳永</div>
+      </div>
+    </div>
+    <div>
+      <div>
+        
+          <div>辛弃疾</div>
+          <div>李白</div>
+          <div>杜甫</div>
+        </div>
+        <div>陆游</div>
+    </div>
+  </div>
+  
+
+  
+  <input type = "button" value = "preTra" id = "preOrd"/><br /><br />
+  <input type="text" size="10" id = "inqu"/>
+  	<input type="button" id = "sub" value = "inquery"/><br /><br />
+  	
+  	<input type="button" id = "delete" value = "delete"/><br /><br />
+  	
+  	  <input type="text" size="10" id = "addCon"/>
+  	<input type="button" id = "add" value = "addDiv"/><br /><br />
+  	
+  <script type="text/javascript">
+  	
+  	var rootNode = document.getElementById("show");
+  	var prebtn = document.getElementById("preOrd");
+  	var subbtn = document.getElementById("sub");
+  	var delbtn = document.getElementById("delete");
+  	var addbtn = document.getElementById("add");
+  	var allDiv = document.getElementsByTagName("div");
+  	var treeNodes = []; 	
+  	var timer = null;
+  	var textcon,addCon;
+		window.onload = function initialize(){	
+			
+				prebtn.onclick = function(){
+					resetDiv();
+					preorder(rootNode);					
+					changeColor(treeNodes);
+				}
+				
+				subbtn.onclick = function(){
+					textcon = document.getElementById("inqu").value;
+					resetDiv();
+					preorder(rootNode);
+					changeColor(treeNodes);
+				}
+				
+				delbtn.onclick = function(){
+					
+					var Item = document.getElementsByClassName("selected")[0];
+					
+					deleteItem(Item);
+					
+					
+				}
+				
+				addbtn.onclick =function(){
+					var Item = document.getElementsByClassName("selected")[0];
+					addCon = document.getElementById("addCon").value;
+					addItem(Item,addCon);
+				}
+				
+				for(var i=0;i<allDiv.length;i++){
+					allDiv[i].onclick = function(){
+						resetDiv();
+						this.className="selected";
+						window.event? window.event.cancelBubble = true : e.stopPropagation();
+					}
+				}
+				
+				
+		}
+		
+		
+		function addItem(parentNode,text){
+			var addN = document.createElement("div");
+			addN.innerHTML=text;
+			addN.className="abc";
+			parentNode.appendChild(addN);
+			
+			resetDiv();
+		}
+		
+		function deleteItem(node){
+			
+			var parNode = node.parentNode;
+			parNode.removeChild(node);
+			
+		}
+		
+
+			function preorder(node){
+			if(node!=null){			
+			treeNodes.push(node);						
+		    var l = node.childNodes.length;
+		    var childrenN = node.childNodes;   
+			for(var i = 0;i<l;i++){
+				if(childrenN [i].nodeType==1)
+				preorder(childrenN [i]);			
+			}
+		  }
+		}
+		
+		function changeColor(){
+			var myRe = eval("/^" + textcon + "$/gim")
+			
+            //var myArray = myRe.exec("cdbbdbsbz");
+		var i = 0
+		treeNodes[i].style.backgroundColor="red";
+		
+		timer = setInterval(function(){
+		i++;
+		if(i<treeNodes.length)
+		{
+		
+		treeNodes[i-1].style.backgroundColor="white";
+		treeNodes[i].style.backgroundColor="red";
+		
+		var arr = myRe.exec(treeNodes[i].innerHTML);
+		
+		if(arr == textcon ){
+			clearInterval(timer);
+			treeNodes[i].style.backgroundColor="pink";
+		}
+		}
+		
+		else{
+			clearInterval(timer);
+			treeNodes[i-1].style.backgroundColor="white";
+			if(textcon != null ){
+				alert("不存在");
+			}
+		}
+		},1000);		
+		}
+		
+		
+		function resetDiv(){
+			
+			var len = allDiv.length;
+			
+			for(var i = 0; i<len;i++){
+				allDiv[i].className="abc";				
+			}
+			
+		}
+  </script>
+  
+  
+	</body>
+</html>

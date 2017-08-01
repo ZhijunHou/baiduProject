@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+
+		<style type="text/css">
+			* {
+				margin: 0px;
+				padding: 0px;
+			}
+			
+			ul {
+				margin: 30px
+			}
+			
+			table {
+				border-collapse: collapse;
+			}
+			
+			td {
+				border: solid darkgrey 1px;
+				height: 30px;
+				width: 30px;
+			}
+			
+			tr:first-child td {
+				border: none;
+				text-align: center;
+				color: darkgray;
+			}
+			
+			td:first-child {
+				border: none;
+				text-align: center;
+				color: darkgray;
+			}
+			
+			.divSelNorth {
+				height: 24px;
+				width: 30px;
+				border-top: 6px solid blue;
+				background-color: red;
+			}
+			
+			.divSelEast {
+				height: 30px;
+				width: 24px;
+				border-right: 6px solid blue;
+				background-color: red;
+			}
+			
+			.divSelSouth {
+				height: 24px;
+				width: 30px;
+				border-bottom: 6px solid blue;
+				background-color: red;
+			}
+			
+			.divSelWest {
+				height: 30px;
+				width: 24px;
+				border-left: 6px solid blue;
+				background-color: red;
+			}
+		</style>
+
+		<script type="text/javascript">
+			var startBu, textContent, textIn, divSel, tab;
+			var oldloc, loc;
+			window.onload = function() {
+				tab = document.getElementById("table");
+				startBu = document.getElementById("startBu");
+				textIn = document.getElementById("textIn");
+				divSel = document.createElement("div");
+				divSel.setAttribute("direction", "North");
+				divSel.className = "divSelNorth";
+				initial();
+				startFu();
+
+			}
+
+			function initial() {
+				tab.rows[6].cells[7].appendChild(divSel);
+				oldloc = [6, 7]
+			}
+
+			function TRAfun(direc) {
+				switch(direc)
+
+				{
+					case "left":
+						loc[1] = loc[1] - 1;
+						break;
+					case "right":
+						loc[1] = loc[1] + 1;
+						break;
+					case "top":
+						loc[0] = loc[0] - 1;
+						break;
+					case "bottom":
+						loc[0] = loc[0] + 1;
+						break;
+				}
+
+			}
+
+			function defFun() {
+				var dire = divSel.getAttribute("direction");
+
+				switch(dire)
+
+				{
+					case "North":
+						loc[0] = loc[0] - 1;
+						break;
+					case "South":
+						loc[0] = loc[0] + 1;
+						break;
+					case "West":
+						loc[1] = loc[1] - 1;
+						break;
+					case "East":
+						loc[1] = loc[1] + 1;
+						break;
+				}
+			}
+
+			function TURNfun(direc) {
+
+				if(direc == "left") {
+					divSel.setAttribute("direction", getDirLeft());
+				}else if(direc == "right"){
+					divSel.setAttribute("direction",getDirRight());	
+				}
+
+
+			}
+
+			function getDirLeft() {
+
+				var dire = divSel.getAttribute("direction");
+				if(dire == "North") {
+					divSel.className = "divSelWest";
+					return "West";
+				} else if(dire == "East") {
+					divSel.className = "divSelNorth";
+					return "North";
+				} else if(dire == "South") {
+					divSel.className = "divSelEast";
+					return "East";
+				} else if(dire == "West") {
+					divSel.className = "divSelSouth";
+					return "South";
+				}
+
+			}
+
+			function getDirRight() {
+				var dire = divSel.getAttribute("direction");
+				if(dire == "North") {
+					divSel.className = "divSelEast";
+					return "East";
+				} else if(dire == "East") {
+					divSel.className = "divSelSouth";
+					return "South";
+				} else if(dire == "South") {
+					divSel.className = "divSelWest";
+					return "West";
+				} else if(dire == "West") {
+					divSel.className = "divSelNorth";
+					return "North";
+				}
+
+			}
+			
+			
+			function DIRMove(dire){
+				
+				var movDir,direct;
+				
+				switch(dire){
+					case "left":movDir="divSelWest";direct="West";break;
+					case "top":movDir="divSelNorth";direct="North";break;
+					case "right":movDir="divSelEast";direct="East";break;
+					case "bottom":movDir="divSelSouth";direct="South";break;
+				}
+				
+				divSel.className = movDir;
+				divSel.setAttribute("direction",direct);
+			}
+			
+			
+
+			function startFu() {
+				startBu.onclick = function() {
+					textContent = textIn.value;
+					loc = [];
+					loc[0] = oldloc[0];
+					loc[1] = oldloc[1];
+
+					switch(textContent) {
+						case "TURN LEFT":
+							TURNfun("left");
+							break;
+						case "TURN RIGHT":
+							TURNfun("right");
+							break;
+						case "TURN BACK":
+							TURNfun("right");
+							TURNfun("right");
+							break;
+						case "TRA LEF":
+							TRAfun("left");
+							break;
+						case "TRA TOP":
+							TRAfun("top");
+							break;
+						case "TRA RIG":
+							TRAfun("right");
+							break;
+						case "TRA BOT":
+							TRAfun("bottom");
+							break;
+						case "MOV LEF":
+							DIRMove("left");
+							defFun();
+							break;
+						case "MOV TOP":
+							DIRMove("top");
+							defFun();
+							break;
+						case "MOV RIG":
+							DIRMove("right");
+							defFun();
+							break;
+						case "MOV BOT":
+							DIRMove("bottom");
+							defFun();
+							break;
+						default:
+							defFun();
+							break;
+					}
+
+					if(loc[0] == 0 || loc[1] == 0 || loc[0] > 10 || loc[1] > 10) {
+						alert("超出范围");
+					} else {
+						tab.rows[oldloc[0]].cells[oldloc[1]].removeChild(divSel);
+						tab.rows[loc[0]].cells[loc[1]].appendChild(divSel);
+						oldloc[0] = loc[0];
+						oldloc[1] = loc[1];
+					}
+
+				}
+
+			}
+		</script>
+
+	</head>
+
+	<body>
+
+		<ul>
+			<li>对于正方形的移动增加相应动画，包括移动和旋转</li>
+			<li>每个指令的执行时间是1s（可以自己调整）</li>
+			<li>增加新的指令如下：
+				<ol>TRA LEF：向屏幕的左侧移动一格，方向不变</ol>
+				<ol>TRA TOP：向屏幕的上面移动一格，方向不变</ol>
+				<ol>TRA RIG：向屏幕的右侧移动一格，方向不变</ol>
+				<ol>TRA BOT：向屏幕的下面移动一格，方向不变</ol>
+				<ol>MOV LEF：方向转向屏幕左侧，并向屏幕的左侧移动一格</ol>
+				<ol>MOV TOP：方向转向屏幕上面，向屏幕的上面移动一格</ol>
+				<ol>MOV RIG：方向转向屏幕右侧，向屏幕的右侧移动一格</ol>
+				<ol>MOV BOT：方向转向屏幕下面，向屏幕的下面移动一格</ol>
+			</li>
+		</ul>
+
+		<table id="table">
+			<tr>
+				<td></td>
+				<td>1</td>
+				<td>2</td>
+				<td>3</td>
+				<td>4</td>
+				<td>5</td>
+				<td>6</td>
+				<td>7</td>
+				<td>8</td>
+				<td>9</td>
+				<td>10</td>
+			</tr>
+			<tr>
+				<td>1</td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+			</tr>
+			<tr>
+				<td>2</td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+			</tr>
+			<tr>
+				<td>3</td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+			</tr>
+			<tr>
+				<td>4</td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+			</tr>
+			<tr>
+				<td>5</td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+			</tr>
+			<tr>
+				<td>6</td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+			</tr>
+			<tr>
+				<td>7</td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+			</tr>
+			<tr>
+				<td>8</td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+			</tr>
+			<tr>
+				<td>9</td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+			</tr>
+			<tr>
+				<td>10</td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+			</tr>
+		</table>
+
+		<br />
+		<input type="text" size="20" id="textIn">
+		<input type="button" value="GO" id="startBu" />
+
+	</body>
+
+</html>

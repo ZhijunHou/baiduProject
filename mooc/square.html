@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		
+		<style type="text/css">
+			
+			*{
+				margin: 0px;
+				padding: 0px;
+			}
+			
+			table{
+				
+				border-collapse:collapse;
+			}
+
+			td{
+				border:solid darkgrey 1px;
+				height:40px;
+				width: 40px;
+			}
+			
+			tr:first-child td{
+				border:none;
+				text-align: center;
+				color: darkgray;
+			}
+
+			td:first-child{
+				border:none;
+				text-align: center;
+				color: darkgray;
+			}
+			
+			
+			.selBox{
+				border-top: 10px solid blue;
+				background-color: red;
+			}
+			.origiBox{
+				border-top: solid darkgrey 1px;
+				background-color: none;
+			}
+			
+			.divSelNorth{
+				height:32px;
+				width: 40px;
+				border-top: 8px solid blue;
+				background-color: red;
+			}
+			
+			.divSelEast{
+				height:40px;
+				width: 32px;
+				border-right: 8px solid blue;
+				background-color: red;
+			}
+			
+			.divSelSouth{
+				height:32px;
+				width: 40px;
+				border-bottom: 8px solid blue;
+				background-color: red;
+			}
+			
+			
+			.divSelWest{
+				height:40px;
+				width: 32px;
+				border-left: 8px solid blue;
+				background-color: red;
+			}
+	
+
+		</style>
+		
+		<script type="text/javascript">
+			
+			var tab,go,turnRight,turnLeft,back,divSel;
+			
+			var oldloc,loc;
+			
+			window.onload  = function(){
+				tab = document.getElementById("table");
+				go = document.getElementById("go");
+				turnRight = document.getElementById("right");
+				turnLeft = document.getElementById("left");
+				back = document.getElementById("back")
+				divSel = document.createElement("div");
+				divSel.setAttribute("direction","North");
+			    divSel.className = "divSel";
+				initial();
+				start();
+				
+			}
+			
+			function initial(){
+			
+		
+			tab.rows[6].cells[7].appendChild(divSel);
+			oldloc = [6,7]
+	
+			}
+			
+			
+			function start(){
+				
+				go.onclick = function(){
+					
+					
+					var dire = divSel.getAttribute("direction");
+					loc = [];
+					loc[0] = oldloc[0];
+					loc[1]=oldloc[1];
+					
+					switch (dire)
+					
+					{
+					case "North":loc[0] = loc[0]-1;break;
+					case "South":loc[0] = loc[0]+1;break;
+					case "West": loc[1] = loc[1]-1;break;
+					case "East": loc[1] = loc[1]+1;break;
+					}
+					 
+					if(loc[0]==0 || loc[1] == 0 || loc[0]>10 || loc[1] > 10){
+						alert("超出范围");
+					}
+					else{
+						tab.rows[oldloc[0]].cells[oldloc[1]].removeChild(divSel);
+						tab.rows[loc[0]].cells[loc[1]].appendChild(divSel);
+						oldloc[0] = loc[0];
+					    oldloc[1]=loc[1];
+					}
+					
+				}
+				
+				right.onclick = function(){
+				divSel.setAttribute("direction",getDirRight());					
+				}
+				
+				turnLeft.onclick = function(){
+					divSel.setAttribute("direction",getDirLeft());	
+				}
+				
+				back.onclick = function(){
+					divSel.setAttribute("direction",getDirRight());	
+					divSel.setAttribute("direction",getDirRight());	
+				}
+				
+				
+			}
+			
+			function getDirLeft(){
+				
+				var dire = divSel.getAttribute("direction");
+				if(dire == "North"){
+					divSel.className = "divSelWest";	
+					return "West";
+				}else if(dire == "East"){
+					divSel.className ="divSel";
+					return "North";
+				}else if(dire == "South"){
+					divSel.className ="divSelEast";
+					return "East";
+				}else if (dire == "West"){
+					divSel.className = "divSelSouth";	
+					return "South";
+				}
+				
+				
+			
+				
+			}
+			
+			function getDirRight(){
+				var dire = divSel.getAttribute("direction");
+				if(dire == "North"){
+					divSel.className = "divSelEast";	
+					return "East";
+				}else if(dire == "East"){
+					divSel.className ="divSelSouth";
+					return "South";
+				}else if(dire == "South"){
+					divSel.className ="divSelWest";
+					return "West";
+				}else if (dire == "West"){
+					divSel.className = "divSel";	
+					return "North";
+				}
+				
+				
+			}
+			
+			
+			
+	
+			
+
+		</script>
+	</head>
+	<body> 
+		
+		<table id="table">
+			<tr>
+				<td></td><td>1</td><td>2</td><td>3</td><td>4</td><td>5</td><td>6</td><td>7</td><td>8</td><td>9</td><td>10</td>
+			</tr>
+			<tr>
+				<td>1</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+			</tr>
+			<tr>
+				<td>2</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+			</tr>
+			<tr>
+				<td>3</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+			</tr>
+			<tr>
+				<td>4</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+			</tr>
+			<tr>
+				<td>5</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+			</tr>
+			<tr>
+				<td>6</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+			</tr>
+			<tr>
+				<td>7</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+			</tr>
+			<tr>
+				<td>8</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+			</tr>
+			<tr>
+				<td>9</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+			</tr>
+			<tr>
+				<td>10</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+			</tr>
+		</table>
+		
+		
+		<br />
+		<input type="button" value="GO" id = "go"/>
+		<input type="button" value="TURN RIGHT" id = "right"/>
+		<input type="button" value="TURN LEFT" id = "left"/>
+		<input type="button" value="TURN BACK" id = "back"/>
+		
+	</body>
+</html>

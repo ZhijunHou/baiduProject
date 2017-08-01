@@ -1,0 +1,151 @@
+<!--
+	作者：hour9302@163.com
+	时间：2017-07-05
+	描述：
+模拟一个队列，队列的每个元素是一个数字，初始队列为空
+有一个input输入框，以及4个操作按钮
+
+点击"左侧入"，将input中输入的数字从左侧插入队列中；
+点击"右侧入"，将input中输入的数字从右侧插入队列中；
+点击"左侧出"，读取并删除队列左侧第一个元素，并弹窗显示元素中数值；
+点击"右侧出"，读取并删除队列又侧第一个元素，并弹窗显示元素中数值；
+点击队列中任何一个元素，则该元素会被从队列中删除
+-->
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		
+	<style type="text/css">
+		
+		*{
+			margin:0px;
+			padding: 0px;
+		}
+		
+		.opbtn{
+			margin-left: 10px;
+		}
+		
+		#rightin{
+			margin-right:30px
+		}
+		
+		#num-list{
+			margin: 10px;
+		}
+		.num-con{
+			width:50px;
+			height: 50px;
+			background-color: red;
+			font-size: 30px;
+			font-weight: bold;
+			color: white;
+			margin-right: 8px;
+			float: left;
+			list-style: none;
+			/*align-content: center;*/
+		}
+		
+		.num-con span{
+			position: relative;
+			top:8px;
+			left:8px;
+			cursor: pointer;
+		}
+		
+	</style>	
+
+
+	<script type="text/javascript">
+		
+		var leftin,rightin,leftout,rightout,numList;
+		
+		function ini(){
+			numList = document.getElementById("num-list");
+			leftin = document.getElementById("leftin");			
+			rightin = document.getElementById("rightin");
+			leftout = document.getElementById("leftout");
+			rightout = document.getElementById("rightout");
+			start();
+		}
+		
+		
+		
+		
+		
+		
+		function start(){
+			var val = document.getElementById("num");
+		
+		leftin.onclick=function(){	
+			var node = createN(val.value);
+			numList.insertBefore(node,numList.firstChild);
+		}
+		
+		rightin.onclick=function(){	
+			var node = createN(val.value);
+			numList.appendChild(node);
+		}
+		
+		leftout.onclick=function(){	
+			numList.removeChild(numList.firstChild);
+		}
+		
+		rightout.onclick=function(){	
+			numList.removeChild(numList.lastChild);
+		}
+		
+		for(var i =0;i<numList.childNodes.length;i++){
+			
+			numListCh = numList.childNodes;
+			if(numListCh[i].nodeType==1){
+			numListCh[i].onclick=function(){
+				numList.removeChild(this);
+			}
+		}
+		}
+		
+		
+		}
+		
+		
+		
+		
+		function createN(val){
+			
+			var newspan = document.createElement("span");
+			newspan.innerText=val;
+			var newli = document.createElement("li");
+			newli.appendChild(newspan);
+			newli.className="num-con";
+			newli.onclick=function(){
+				numList.removeChild(this);
+			}
+			return newli;			
+		}
+		
+		
+	</script>
+
+
+	</head>
+	<body onload = "ini()">
+		<input type="text" id="num"/>
+		
+		<input type="button" id="leftin" class="opbtn" value="左侧入" />
+		<input type="button" id="rightin" class="opbtn" value="右侧入" />
+		<input type="button" id="leftout" class="opbtn" value="左侧出" />
+		<input type="button" id="rightout" class="opbtn" value="右侧出" />
+		
+		<ul id = "num-list">
+			
+			<li class="num-con"><span>10</span></li>
+			<li class="num-con"><span>10</span></li>
+
+			
+		</ul>
+		
+	</body>
+</html>

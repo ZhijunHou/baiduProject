@@ -1,0 +1,125 @@
+<!--
+	作者：hour9302@163.com
+	时间：2017-07-20
+	描述：在页面中完成两个单选框，切换单选框的不同选项时下方显示的表单随之切换。
+当选择在校生时，出现两个select下拉菜单，一个选择城市，一个选择学校，当选择非在校生时，出一个文本输入框
+学校下拉菜单里的学校名单均为城市下拉菜单中所选的城市中的大学，当城市发生变化时，学校一起发生变化
+城市及学校的数据随意编造即可，无需真实完整
+-->
+
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		
+		<style type="text/css">
+			
+			#form2{
+				display: none;
+			}
+			
+			
+		</style>
+		
+		
+		<script type="text/javascript">
+			var instu,nostu,form1,form2,locat,school;
+			
+			window.onload = function(){
+				
+				instu = document.getElementById("instu");
+				nostu = document.getElementById("nostu");				
+				form1 = document.getElementById("form1");				
+				form2 = document.getElementById("form2");	
+				locat = document.getElementById("locat");
+				school = document.getElementById("school");
+				start();
+				
+				
+			}
+			
+			function start(){
+				
+				
+				
+				
+				instu.onchange = function(){
+					form1.style.display="block";
+					form2.style.display = "none";
+				}
+				
+				nostu.onchange = function(){
+					form1.style.display="none";
+					form2.style.display = "block";
+				}
+				
+				locat.onchange = function(){
+					while(school.firstChild) {
+        					school.removeChild(school.firstChild);
+					}
+					if(this.value == "beijing"){ 
+						addNodeToS( "北京大学","清华大学");
+					}
+					else if(this.value == "nanjing"){ 
+						addNodeToS("南京大学","南京航天航天大学") ;
+					}
+					else if(this.value == "tianjin"){ 
+						addNodeToS("天津大学","南开大学") ;
+					 	
+					}
+					else if(this.value == "shanghai"){
+						addNodeToS("上海大学");
+					}
+					
+				}
+				
+			}
+			
+			function addNodeToS(){
+				
+				for(var i = 0; i<arguments.length;i++){
+					
+					var selNode = document.createElement("option");
+					 	selNode.innerHTML = arguments[i];
+					 	school.appendChild(selNode);
+					 	
+				}
+			}
+			
+
+			
+			
+		</script>
+		
+	</head>
+	<body>
+		<input type="radio" name = "sel" id = "instu" checked="checked"/>在校生
+		<input type="radio" name = "sel" id = "nostu" />非在校生
+		<br />
+		<br />
+		<form id = "form1">
+			<select name = "location" id = "locat">
+				<option name = "location" value = "shanghai">上海</option>
+				<option name = "location" value = "beijing">北京</option>
+				<option name = "location" value = "nanjing">南京</option>
+				<option name = "location" value = "tianjin">天津</option>
+				
+			</select>
+			
+			<select name = "school" id = "school">
+				<option name = "school" >上海大学</option>
+				
+			</select>
+		</form>
+		
+		<form id = "form2">
+			
+			就业单位<input type="text" size="20" />
+			
+		</form>
+		
+		
+		
+	</body>
+</html>

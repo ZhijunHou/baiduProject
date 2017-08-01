@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		
+		
+		
+		<style type="text/css">
+			
+			*{
+				margin: 0px;
+				padding: 0px;
+			}
+			
+			#container{
+				height: 400px;
+				width: 600px;
+			}
+			
+			img{
+				position: relative;
+				top: 45px;
+				left: 75px;
+			}
+			
+			
+			#container:hover img{
+				-webkit-filter: blur(1.5px);
+			}
+			
+			
+			
+			.wrapper{
+				
+				height: 180px;
+				width:300px;
+				position: absolute;
+				top: 100px;
+				left: 150px;
+				text-align: center;
+			}
+			
+			
+			.wrapper:before{
+				
+				content: '';
+				position: absolute;
+				top: 0;
+				left: 50%;
+				width: 0;
+				height: 98%;
+				border-width: 3px 0;
+				
+			}
+			
+			
+			#container:hover  .wrapper:before{
+				content: '';
+				left: 0;
+				width: 100%;
+				border:3px solid whitesmoke;
+				border-width: 3px 0;				
+				transition:all 1.5s;
+			}
+			
+			.wrapper:after{
+				
+				content: '';
+				position: absolute;
+				top: 50%;
+				left: 0;
+				width: 98%;
+				height: 0;
+				border-width: 0 3px;
+				
+			}
+			
+			
+			#container:hover  .wrapper:after{
+				content: '';
+				top: 0;
+				height: 100%;
+				border:3px solid whitesmoke;
+				border-width: 0 3px;				
+				transition:all 1.5s;
+			}
+			
+			
+			
+			h1,h4{
+				position: relative;
+				top: 50px;				
+				background-image: -webkit-linear-gradient(left,red,yellow,pink,red,yellow,pink,red);
+				-webkit-background-clip: text;
+				-webkit-text-fill-color: transparent;
+				-webkit-background-size: 200% 100%;
+				-webkit-animation: masked-animation 4s infinite linear;
+				opacity: 0;
+			}
+			
+			h4{
+				background-image: -webkit-linear-gradient(left,red,pink,red,pink,red);
+
+			}
+			
+			
+			#container:hover h1{
+				opacity: 1;
+			}
+			
+			#container:hover h4{
+				opacity: 1;
+			}
+			
+			
+			@-webkit-keyframes masked-animation {
+				0%{
+					background-position: 0 0;
+				}
+				100%{
+					background-position: -100% 0;
+				}
+			}
+			
+			
+			
+		</style>
+		
+		
+	</head>
+	<body>
+		<div id = "container">
+			
+			<img src="img/4.jpeg" height="300px"/>
+			
+			<div id="text" class="wrapper">
+				
+				<h1>zhida</h1>
+				<h4>是猪</h4>
+				
+			</div>
+			
+			
+		</div>
+		
+	</body>
+</html>  

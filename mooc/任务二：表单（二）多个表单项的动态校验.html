@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style type="text/css">
+			*{
+				margin: 0px;
+				padding: 0px;
+			}
+			
+			#content{
+				position: absolute;
+				top:50px;
+				left: 50px;
+			}
+			
+			input{
+				position: absolute;
+				left: 80px;
+			}
+			
+			#confirmInfo{
+				left: 203px;
+			}
+			
+			span{
+				color: darkgrey;
+				font-family: "微软雅黑";
+				font-size: smaller;
+				position: relative;
+				left: 80px;
+			}
+			
+		</style>
+		
+		<script type="text/javascript">
+			
+			var nameObj,nameSpan,psdWord,psdSpan,conpsdObj,conpsdSpan,eaddress,adrspan,phone,phonespan;
+			var pNode;
+			window.onload=function(){
+				pNode = document.getElementById("formDiv");
+				nameObj = document.getElementById("name");
+				nameSpan = document.getElementById("namespan");
+				
+				psdWord = document.getElementById("password");
+				psdSpan = document.getElementById("psdspan");
+				
+				conpsdObj = document.getElementById("confirmpsd");
+				conpsdSpan = document.getElementById("conpsdspan");
+				
+				eaddress = document.getElementById("eaddress");
+				adrspan = document.getElementById("addressspan");
+				
+				phone = document.getElementById("phone");
+				phonespan = document.getElementById("phonespan");
+				
+				start();
+			
+			}
+			
+			
+			function start(){
+				
+				document.getElementById("confirmInfo").onclick = function(){
+					var result = nameObj.onblur()&&psdWord.onblur()&&conpsdObj.onblur()&&eaddress.onblur()&&phone.onblur();
+					if(result){
+						alert("提交成功");
+					}else{
+						alert("输入有误");
+					}
+				}
+				
+				nameObj.onfocus = function(){
+					nameSpan.innerHTML="必填，字符需在4-16位";
+					nameSpan.style.color = "darkgrey";
+				}
+				
+				nameObj.onblur = function(){
+					
+				var strName = nameObj.value;
+				var length = getLength(strName);
+
+				if(length < 4 || length > 16) {
+					if(length == 0) {
+						nameSpan.innerHTML = "姓名不能为空";
+					} else {
+						nameSpan.innerHTML = "长度应为4-16个字符之间";
+					}
+					nameSpan.style.color = "red";
+					nameObj.style.borderColor="red";
+					return false;
+				} else {
+					nameSpan.innerHTML = "验证成功";
+					nameSpan.style.color = "limegreen";
+					nameObj.style.borderColor="limegreen";
+					return true;
+				}
+			
+				}
+				
+				
+				psdWord.onfocus = function(){
+					psdSpan.innerHTML="必填，英文，数字，4-16位";
+					psdSpan.style.color = "darkgrey";
+				}
+				
+				psdWord.onblur = function(){
+					
+				var strName = psdWord.value;
+				var length = getLength(strName);
+				
+				if(length>strName.length){
+					psdSpan.innerHTML = "密码只能为英文字符，数字";
+					psdSpan.style.color = "red";
+					psdWord.style.borderColor="red";
+					return false;
+				}
+
+				else if(length < 4 || length > 16) {
+					if(length == 0) {
+						psdSpan.innerHTML = "密码不能为空";
+					} else {
+						psdSpan.innerHTML = "长度应为4-16个字符之间";
+					}
+					psdSpan.style.color = "red";
+					psdWord.style.borderColor="red";
+					return false;
+				} else {
+					psdSpan.innerHTML = "密码可用";
+					psdSpan.style.color = "limegreen";
+					psdWord.style.borderColor="limegreen";
+					return true;
+				}
+			
+				}
+				
+				
+				
+								
+				conpsdObj.onfocus = function(){
+					conpsdSpan.innerHTML="请再次输入密码";
+					conpsdSpan.style.color = "darkgrey";
+				}
+				
+				conpsdObj.onblur = function(){
+					
+				var strName = psdWord.value;
+				var psdName = conpsdObj.value;
+
+
+
+				if(strName == psdName && strName.length!=0){
+					conpsdSpan.innerHTML = "两次密码一致";
+					conpsdSpan.style.color = "limegreen";
+					conpsdObj.style.borderColor="limegreen";
+					return true;
+				}
+
+				else {	
+					if(psdName.length == 0){
+						conpsdSpan.innerHTML = "密码不能为空";
+					}else
+					conpsdSpan.innerHTML = "密码不一致";					
+					conpsdSpan.style.color = "red";
+					conpsdObj.style.borderColor="red";
+					return false;
+				} 
+			
+				}
+				
+				
+				eaddress.onfocus = function(){
+					
+					adrspan.innerHTML = "请输入邮箱";
+					adrspan.style.color = "darkgrey";
+					
+				}
+				
+				eaddress.onblur = function(){
+					
+					var regExp = /^([a-zA-Z0-9_-])+@([a-zA-Z0-9_-])+(\.([a-zA-Z0-9_-])+)+/g
+					
+					var adr = eaddress.value;
+					if(regExp.exec(adr)){
+					adrspan.innerHTML = "邮箱可用";
+					adrspan.style.color = "limegreen";
+					eaddress.style.borderColor="limegreen";
+					return true;
+					}else{
+					adrspan.innerHTML = "邮箱格式错误";
+					adrspan.style.color = "red";
+					eaddress.style.borderColor="red";
+					return false;
+					}
+					
+					
+				}
+				
+				phone.onfocus = function(){
+					
+					phonespan.innerHTML = "请输入11位手机号码";
+					phonespan.style.color = "darkgrey";
+					
+				}
+				
+				phone.onblur = function(){
+					
+					var regExp = /^[0-9]{11}/g
+					
+					var adr = phone.value;
+					if(regExp.exec(adr)){
+					phonespan.innerHTML = "手机号码可用";
+					phonespan.style.color = "limegreen";
+					phone.style.borderColor="limegreen";
+					return true;
+					}else{
+					phonespan.innerHTML = "手机号码需为11位";
+					phonespan.style.color = "red";
+					phone.style.borderColor="red";
+					return false;
+					}
+					
+					
+				}
+				
+				
+				
+				
+			}
+			
+			
+			
+			
+			
+			function getLength(str){				 
+				return str.replace(/[^\x00-\xff]/g,'01').length;
+
+			}
+			
+		</script>
+		
+	</head>
+	<body>
+		
+		
+		<div id="content">
+		<form id = "formDiv">
+			
+			名称 <input type="text" id="name" size="20"/><br /><span id="namespan"></span><br />
+			密码 <input type="password" id="password" size="20"/><br /><span id="psdspan"></span><br />
+			密码确认<input type="password" id="confirmpsd" size="20"/><br /><span id="conpsdspan"></span><br />
+			邮箱 <input type="text" id="eaddress" size="20"/><br /><span id="addressspan"></span><br />
+			手机 <input type="text" id="phone" size="20"/><br /><span id="phonespan"></span><br />
+			<input id="confirmInfo" type="button" value="确认" />
+			
+		</form>
+		</div>
+	</body>
+</html>

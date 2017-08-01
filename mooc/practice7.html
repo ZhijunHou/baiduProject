@@ -1,0 +1,162 @@
+<!--
+	作者：hour9302@163.com
+	时间：2017-07-05
+	描述：
+	
+参考示例图，在页面中展现一颗二叉树的结构
+提供一个按钮，显示开始遍历，点击后，以动画的形式呈现遍历的过程
+二叉树的遍历算法和方式自定，前序中序后序皆可，但推荐可以提供多种算法的展示（增加多个按钮，每个按钮对应不同的算法）
+当前被遍历到的节点做一个特殊显示（比如不同的颜色）
+每隔一段时间（500ms，1s等时间自定）再遍历下一个节点
+
+
+function preOrder(node){
+    if(!node == null){
+        putstr(node.show()+ " ");
+        preOrder(node.left);
+        preOrder(node.right);
+    }
+}
+-->
+
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		
+		<style type="text/css">
+			
+			*{
+				margin: 0px;
+				padding: 0px;
+			}
+			
+			
+			div{
+				border:1px solid black;
+				display: flex;
+                justify-content: space-around;
+                align-items: center;
+                background: white;
+			}
+			
+			.r{
+				
+				height: 210px;
+				width:1100px;
+			}
+			
+			.r1{
+				
+				height: 180px;
+				width:530px;
+				
+			}
+			
+			.r2{
+				height:120px;
+				width:240px;
+
+			}
+			
+			.r3{
+				height: 70px;
+				width:100px;
+				
+			}
+			
+			
+		</style>
+		
+		
+	
+	</head>
+	<body>
+		
+		<div class="r" id = "root">
+		
+		<div class="r1">
+			<div class="r2">
+				<div class="r3">
+					
+				</div><div class="r3"></div>
+			</div>
+			<div class="r2">
+				<div class="r3"></div>
+				<div class="r3"></div>
+			</div>			
+		</div>
+		
+				<div class="r1">
+			<div class="r2">
+				<div class="r3"></div>
+				<div class="r3"></div>
+			</div>
+			<div class="r2">
+				<div class="r3"></div>
+				<div class="r3"></div>
+			</div>			
+		</div>
+		
+		</div>
+		
+	
+		<br />
+		<input type="button" value="开始遍历" id = "btn"/>
+		
+		
+		
+		<script type="text/javascript">
+		var rootNode = document.getElementById("root");
+		var treeNodes = [];
+		var prebtn = document.getElementById("btn");
+		var timer = null;
+		window.onload = function initialize(){			
+				prebtn.onclick = function(){
+					preorder(rootNode);					
+					changeColor(treeNodes);
+				}
+				
+		}
+		
+		
+		function preorder(node){
+			if(node!=null){
+			//alert(node.className);
+			treeNodes.push(node);
+			
+			preorder(node.firstElementChild);
+			preorder(node.lastElementChild);
+			}
+		}
+		
+		function changeColor(){
+		var i = 0
+		treeNodes[i].style.backgroundColor="red";
+		
+		timer = setInterval(function(){
+		i++;
+		if(i<treeNodes.length)
+		{
+			
+		treeNodes[i-1].style.backgroundColor="white";
+		treeNodes[i].style.backgroundColor="red";
+		}
+		
+		else{
+			clearInterval(timer);
+			treeNodes[i-1].style.backgroundColor="white";
+		}
+		},1000);
+		 		
+		
+		
+		
+		}
+		
+	
+	</script>	
+		
+	</body>
+</html>

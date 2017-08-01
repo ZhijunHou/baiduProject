@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style type="text/css">
+			
+			*{
+				margin: 0px;
+				padding: 0px;
+			}
+			
+			div{
+				height: 200px;
+				width: 200px;
+				border:1px solid black;
+				float:left;
+			}
+			
+			#div1{
+				margin: 20px;
+				padding:50px;
+				
+			}
+			
+			#div2{
+				margin: 20px;
+			}
+			
+		</style>
+	</head>
+	<body>
+		
+		
+		<div id="div1">aaaaaaaaaa</div>
+		<div id="div2"></div>
+		
+		<script type="text/javascript">
+			window.onload = function()
+			{var a = document.getElementById("div1");
+			alert(a.style.width);
+			}
+		</script>
+	</body>
+</html>

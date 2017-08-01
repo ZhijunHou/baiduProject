@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+
+		<style type="text/css">
+			* {
+				margin: 0px;
+				padding: 0px;
+			}
+			
+			#formDiv {
+				position: absolute;
+				top: 50px;
+				left: 50px;
+			}
+			
+			.requirement {
+				color: darkgrey;
+				font-family: "微软雅黑";
+				font-size: smaller;
+				position: relative;
+				left: 50px;
+			}
+			
+			input {
+				margin-left: 10px;
+			}
+		</style>
+
+		<script type="text/javascript">
+			var userName;
+			var spanRe;
+			window.onload = function() {
+				userName = document.getElementById("username");
+				spanRe = document.getElementById("spanRe");
+			}
+
+			function confirmName() {
+				var strName = userName.value;
+				var length = getLength(strName);
+
+				if(length < 4 || length > 16) {
+					if(length == 0) {
+						spanRe.innerHTML = "姓名不能为空";
+					} else {
+						spanRe.innerHTML = "长度应为4-16个字符之间";
+					}
+					spanRe.style.color = "red";
+				} else {
+					spanRe.innerHTML = "验证成功";
+					spanRe.style.color = "limegreen";
+				}
+			}
+			
+			
+			function getLength(str){
+				 
+				return str.replace(/[^\x00-\xff]/g,'01').length;
+				
+				
+ 
+			}
+//
+//			function getLength(str) {
+////				var len = 0;
+////				for(var i = 0; i < str.length; i++) {
+////					if(str.charCodeAt(i) > 127 || str.charCodeAt(i) == 94) {
+////						len += 2;
+////					} else {
+////						len++;
+////					}
+////				}
+////				return len;
+//
+//
+//
+//
+//
+//
+//			}
+		</script>
+	</head>
+
+	<body>
+		<div id="formDiv">
+			姓名:<input type="text" size="30" id="username" />
+			<input type="button" value="验证" onclick="confirmName()" />
+			<br />
+			<span class="requirement" id="spanRe">必填，长度为4-16个字符</span>
+		</div>
+	</body>
+
+</html>
